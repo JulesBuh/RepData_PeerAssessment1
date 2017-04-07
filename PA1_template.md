@@ -1,18 +1,10 @@
----
-title: "Reproducible Research: Peer Assessment 1"
-output: 
-  html_document:
-    keep_md: true
-    toc: yes
----
+# Reproducible Research: Peer Assessment 1
 
 
 ## Loading and preprocessing the data
 # Peer-graded Assignment: Course Project 1
 
-```{r Run Date, include=FALSE}
-Runtime <- Sys.Date()
-```
+
 
 ---
 title: "PA1_template.Rmd"
@@ -21,13 +13,9 @@ date: 2017-04-07
 output: html_document
 ---
 
-date last modified: `r Runtime` 
+date last modified: 2017-04-07 
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-# remove runtime used which is only used for the header of this document
-rm(Runtime)
-```
+
 
 
 
@@ -47,7 +35,8 @@ This device collects data at 5 minute intervals through out the day. The data
 consists of two months of data from an anonymous individual collected during 
 the months of October and November, 2012 and include the number of steps taken 
 in 5 minute intervals each day.
-```{r source file, echo=TRUE}
+
+```r
 URL = "https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip"
 ```
 
@@ -94,42 +83,28 @@ Question 3 output.
 ## System Info and Library Prerequisites
 
 ### System
-```{r prerequisites, echo=FALSE}
 
-      message("R version\t",version$version.string)
-      message("OS\t",version$os)
+```
+## R version	R version 3.3.2 (2016-10-31)
+```
+
+```
+## OS	mingw32
 ```
 ### Libraries
-```{r load libraries, include=FALSE}
-# 1.0 prerequisite
-      library(dplyr)
-      library(stringr)
-      library(ggplot2)
+
+
+
+```
+## dplyr 0.5.0 was used during for the production of this analysis
 ```
 
-```{r library status, echo=FALSE}
-# 1.0 prerequisite
-      if(!exists("tbl_df")){
-            message<-message("dplyr 0.4.0 or greater is required")
-            return()
-      }
-      
-      message("dplyr ",packageVersion("dplyr")," was used during for the production of this analysis")
-      
-      if(!exists("str_pad")){
-            message<-message("stringr 1.1.0 or greater is required")
-            return()
-      }
-      
-      message("stringr ",packageVersion("stringr")," was used during for the production of this analysis")
-      
-            if(!exists("ggplot")){
-            message<-message("ggplot2 2.1.0 or greater is required")
-            return()
-      }
-      
-      message("ggplot2 ",packageVersion("ggplot2")," was used during for the production of this analysis")
+```
+## stringr 1.1.0 was used during for the production of this analysis
+```
 
+```
+## ggplot2 2.1.0 was used during for the production of this analysis
 ```
 ### Prerequisite Common Functions
 
@@ -140,7 +115,8 @@ that the script will retain in the workspace following the running of the code.
 
 `cleanWorkspace()` is a finalising function which removes the `<<-` variables that 
 aren't intended to be retained after the running of the function.
-```{r keep, include=TRUE}
+
+```r
 keep<-function(...){
       #>DESCRIPTION----
       # keeps a record of starting globals
@@ -165,7 +141,8 @@ cleanWorkspace<-function(){
 
 `sourceData()` is used to download the data to the workspace and the working folder.
 
-```{r sourceData function, include=TRUE}
+
+```r
 sourceData<-function(src=URL,expectedfiles="activity.csv",workspaceNames="sourcedData"){
       
       
@@ -208,32 +185,50 @@ sourceData<-function(src=URL,expectedfiles="activity.csv",workspaceNames="source
       str(sourcedData)
       
 }
-
 ```
 
 ## Analysis Run Sequence
 
 The call to the function `sourceData()` loads the data into R.
 
-```{r load data}
 
+```r
 sourceData(URL)
 ```
 
-The data when it was loaded in shows there are `r nrow(sourcedData)` observations 
-and `r length(sourcedData)-3` variables. The `interval` variable represents a 
+```
+## downloading files
+```
+
+```
+## Data loaded successfully into the workspace as 'sourcedData'
+```
+
+```
+## 'data.frame':	17568 obs. of  6 variables:
+##  $ steps   : num  NA NA NA NA NA NA NA NA NA NA ...
+##  $ date    : Date, format: "2012-10-01" "2012-10-01" ...
+##  $ interval: chr  "0000" "0005" "0010" "0015" ...
+##  $ time    : POSIXct, format: "2012-10-01 00:00:00" "2012-10-01 00:05:00" ...
+##  $ timeOnly: POSIXct, format: "2017-04-07 00:00:00" "2017-04-07 00:05:00" ...
+##  $ day     : chr  "Monday" "Monday" "Monday" "Monday" ...
+```
+
+The data when it was loaded in shows there are 17568 observations 
+and 3 variables. The `interval` variable represents a 
 24 hour time and a new variable has been introduced called `time` joining the date 
 and time together into a single POSIXct date time. Another variable called `day`
 has also been included which is needed for [question 3][3]. The [variables][4] are 
-called `r names(sourcedData)`.
+called steps, date, interval, time, timeOnly, day.
 
-Running `summary()` on the loaded data shows there are `r metadata$summary[7,1]`
-The observations were taken between `r range(sourcedData$date)`.
+Running `summary()` on the loaded data shows there are NA's   :2304  
+The observations were taken between 2012-10-01, 2012-11-30.
 
 ## What is mean total number of steps taken per day?
 
 
-```{r Q1, echo=TRUE, fig.width=10}
+
+```r
       Q1<-as.data.frame(summarise(group_by(sourcedData,date),
                                    sum(steps,na.rm = TRUE)
                                    ))
@@ -249,9 +244,9 @@ The observations were taken between `r range(sourcedData$date)`.
       abline(v=median(Q1$steps.Total[Q1$steps.Total!=0]),col="red",lty=5,lwd=1)
       
       legend("topright",legend=c("mean","median"),col=c("blue","red"),lty=c(3,5),lwd=c(5,1))
-      
-      
 ```
+
+![](PA1_template_files/figure-html/Q1-1.png)<!-- -->
 
 
 The total number of steps per day can be seen in the result of the `Q1` data.frame
@@ -261,7 +256,8 @@ number of steps per day is between 10000 and 11000. The plot also shows that the
 mean and median are close to eachother indicating there is very little skew for 
 this set of observations.
 
-```{r, echo=TRUE}
+
+```r
       Average.StepsPerDay <- list(NULL)
       keep(Average.StepsPerDay)
       Average.StepsPerDay$mean <- as.integer(mean(Q1$steps.Total[Q1$steps.Total!=0]))
@@ -270,14 +266,15 @@ this set of observations.
 Excluding the days where no data was collected:
 
 The **mean number** of steps taken per day are 
-`r Average.StepsPerDay$mean` (to nearest whole number).
+10766 (to nearest whole number).
 
 The **median number** of steps taken per day are 
-`r Average.StepsPerDay$median`  (to nearest whole number).
+10765  (to nearest whole number).
 
 ## What is the average daily activity pattern?
 
-```{r Q2, echo=TRUE, fig.width=10}
+
+```r
       Q2<-as.data.frame(summarise(group_by(sourcedData,timeOnly,interval),
                                    mean(steps,na.rm = TRUE)
                                    ))
@@ -307,29 +304,31 @@ The **median number** of steps taken per day are
              box.col="transparent",
              bg = "transparent" )
 ```
+
+![](PA1_template_files/figure-html/Q2-1.png)<!-- -->
  
 The average activity across a day for the study period can be seen in Plot 2.
 
  
-```{r activityPeak, echo=TRUE}
+
+```r
       activityPeak<-list(NULL)
       keep(activityPeak)
       activityPeak$most.lower<-format.Date(Q2$time[Q2$steps.Mean==max(Q2$steps.Mean)],"%T")
       activityPeak$most.upper<-format.Date(Q2$time[Q2$steps.Mean==max(Q2$steps.Mean)]+299,"%T")
-      
 ```
 
-The **most active time interval** is in the morning at **`r activityPeak$most.lower`** - **`r activityPeak$most.upper`**
+The **most active time interval** is in the morning at **08:35:00** - **08:39:59**
 
 
 ## Imputing missing values
 
-Running `summary()` on the loaded data shows there are `r metadata$summary[7,1]`
+Running `summary()` on the loaded data shows there are NA's   :2304  
 The NA values occur for whole days so the script will attempt to impute values
 based on the average interval.
 
-```{r, echo=TRUE}
 
+```r
       Q2<-as.data.frame(summarise(group_by(sourcedData,timeOnly,interval),
                                   mean(steps,na.rm = TRUE)))
 #create a subset of the data where NAs occur
@@ -342,20 +341,33 @@ based on the average interval.
       constructedData<-dplyr::arrange(constructedData, time)
       
       str(constructedData)
+```
+
+```
+## Classes 'tbl_df', 'tbl' and 'data.frame':	17568 obs. of  6 variables:
+##  $ steps   : num  1.717 0.3396 0.1321 0.1509 0.0755 ...
+##  $ date    : Date, format: "2012-10-01" "2012-10-01" ...
+##  $ interval: chr  "0000" "0005" "0010" "0015" ...
+##  $ time    : POSIXct, format: "2012-10-01 00:00:00" "2012-10-01 00:05:00" ...
+##  $ timeOnly: POSIXct, format: "2017-04-07 00:00:00" "2017-04-07 00:05:00" ...
+##  $ day     : chr  "Monday" "Monday" "Monday" "Monday" ...
+```
+
+```r
       keep("constructedData")
       NAcount<-sum(is.na(constructedData$steps))
 ```
 
-There were **`r sum(is.na(sourcedData$steps))` NAs** in the `sourcedData` data.
-There are **`r NAcount` NAs** in the `constructedData` data.
+There were **2304 NAs** in the `sourcedData` data.
+There are **0 NAs** in the `constructedData` data.
 
 
 ## Are there differences in activity patterns between weekdays and weekends?
 
 A new factor is made in the column `weekdayType` within the `constructedData` data.frame
 
-```{r}
 
+```r
       constructedData$weekdayType<-as.factor(
                   ifelse(constructedData$day=="Saturday"|constructedData$day=="Sunday",
                   "weekend","weekday"))
@@ -364,13 +376,32 @@ A new factor is made in the column `weekdayType` within the `constructedData` da
       keep("Q3")
             
       str(Q3)
+```
 
+```
+## List of 2
+##  $ weekday:Classes 'tbl_df', 'tbl' and 'data.frame':	12960 obs. of  7 variables:
+##   ..$ steps      : num [1:12960] 1.717 0.3396 0.1321 0.1509 0.0755 ...
+##   ..$ date       : Date[1:12960], format: "2012-10-01" ...
+##   ..$ interval   : chr [1:12960] "0000" "0005" "0010" "0015" ...
+##   ..$ time       : POSIXct[1:12960], format: "2012-10-01 00:00:00" ...
+##   ..$ timeOnly   : POSIXct[1:12960], format: "2017-04-07 00:00:00" ...
+##   ..$ day        : chr [1:12960] "Monday" "Monday" "Monday" "Monday" ...
+##   ..$ weekdayType: Factor w/ 2 levels "weekday","weekend": 1 1 1 1 1 1 1 1 1 1 ...
+##  $ weekend:Classes 'tbl_df', 'tbl' and 'data.frame':	4608 obs. of  7 variables:
+##   ..$ steps      : num [1:4608] 0 0 0 0 0 0 0 0 0 0 ...
+##   ..$ date       : Date[1:4608], format: "2012-10-06" ...
+##   ..$ interval   : chr [1:4608] "0000" "0005" "0010" "0015" ...
+##   ..$ time       : POSIXct[1:4608], format: "2012-10-06 00:00:00" ...
+##   ..$ timeOnly   : POSIXct[1:4608], format: "2017-04-07 00:00:00" ...
+##   ..$ day        : chr [1:4608] "Saturday" "Saturday" "Saturday" "Saturday" ...
+##   ..$ weekdayType: Factor w/ 2 levels "weekday","weekend": 2 2 2 2 2 2 2 2 2 2 ...
 ```
 
 
 
-```{r, fig.height=7, fig.width=10}
 
+```r
       par( mfrow= c(2,1), mar = c(4,4,3,1) ) 
 
       plot(x=Q3$weekday$timeOnly,y=Q3$weekday$steps,
@@ -426,8 +457,9 @@ A new factor is made in the column `weekdayType` within the `constructedData` da
              lwd=c(1),
              box.col="transparent",
              bg = "transparent" )
-
 ```
+
+![](PA1_template_files/figure-html/unnamed-chunk-4-1.png)<!-- -->
 
 
 Plot 3 separates out the weekly routine into weekend and weekdays. It shows that
@@ -445,9 +477,7 @@ around 15:00. ctivity begins to dies dwo naround 19:00 wheras on weekends it can
 be up to an hour later.
 
 
-```{r tidyup, include=FALSE}
-cleanWorkspace()
-```
+
 
 
 
