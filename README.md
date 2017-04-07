@@ -23,14 +23,16 @@ The [md file][3] is structured as follows:
       4.2. Libraries
       4.3. Prerequisite Common Functions
       5. Analysis Run Sequence
-      5.1 Question 1
-      5.2 Question 2
-      5.3 Question 3
+      5.1 [Question 1][4]
+      5.2 [Question 2][5]
+      5.3 [Question 3][6]
 
 [1]: https://github.com/JulesBuh/RepData_PeerAssessment1/blob/master/PA1_template.Rmd
 [2]: https://github.com/JulesBuh/RepData_PeerAssessment1/blob/master/PA1_template.html
 [3]: https://github.com/JulesBuh/RepData_PeerAssessment1/blob/master/PA1_template.md
-
+[4]: https://github.com/JulesBuh/RepData_PeerAssessment1/blob/master/PA1_template.md#what-is-mean-total-number-of-steps-taken-per-day
+[5]: https://github.com/JulesBuh/RepData_PeerAssessment1/blob/master/PA1_template.md#what-is-the-average-daily-activity-pattern
+[6]: https://github.com/JulesBuh/RepData_PeerAssessment1/blob/master/PA1_template.md#are-there-differences-in-activity-patterns-between-weekdays-and-weekends
 
 
 

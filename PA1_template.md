@@ -102,10 +102,6 @@ Question 3 output.
 ```
 ## stringr 1.1.0 was used during for the production of this analysis
 ```
-
-```
-## ggplot2 2.1.0 was used during for the production of this analysis
-```
 ### Prerequisite Common Functions
 
 #### Workspace Housekeeping
@@ -194,10 +190,6 @@ The call to the function `sourceData()` loads the data into R.
 
 ```r
 sourceData(URL)
-```
-
-```
-## downloading files
 ```
 
 ```
@@ -423,6 +415,13 @@ A new factor is made in the column `weekdayType` within the `constructedData` da
                             type="l",
                             ylim=c(0,max(sourcedData$steps,na.rm=TRUE))
       ))
+      legend("topright",
+             legend=c("average number of steps at time interval"),
+             col=c("red"),
+             lty=c(1),
+             lwd=c(1),
+             box.col="transparent",
+             bg = "transparent" )
       
           #plots the points
       plot(x=Q3$weekend$timeOnly,y=Q3$weekend$steps,
@@ -431,14 +430,7 @@ A new factor is made in the column `weekdayType` within the `constructedData` da
            ylab="number of steps",
            col=rgb(.5,.5,.5,.1),
            pch=20)
-      
-      legend("topleft",
-             legend=c("average number of steps at time interval"),
-             col=c("red"),
-             lty=c(1),
-             lwd=c(1),
-             box.col="transparent",
-             bg = "transparent" )
+
       #get the average for the weekends
       Q3$avg.weekend<-as.data.frame(summarise(group_by(Q3$weekend,timeOnly,interval),
                                          mean(steps,na.rm = TRUE)
@@ -482,10 +474,10 @@ be up to an hour later.
 
 
 
-[1]: https://github.com/JulesBuh/RepData_PeerAssessment1/blob/master/PA1_template.md#question-1---what-is-mean-total-number-of-steps-taken-per-day
+[1]: https://github.com/JulesBuh/RepData_PeerAssessment1/blob/master/PA1_template.md#what-is-mean-total-number-of-steps-taken-per-day
 
-[2]: https://github.com/JulesBuh/RepData_PeerAssessment1/blob/master/PA1_template.md#question-2---what-is-the-average-daily-activity-pattern
+[2]: https://github.com/JulesBuh/RepData_PeerAssessment1/blob/master/PA1_template.md#what-is-the-average-daily-activity-pattern
 
-[3]: https://github.com/JulesBuh/RepData_PeerAssessment1/blob/master/PA1_template.md#question-3---are-there-differences-in-activity-patterns-between-weekdays-and-weekends
+[3]: https://github.com/JulesBuh/RepData_PeerAssessment1/blob/master/PA1_template.md#are-there-differences-in-activity-patterns-between-weekdays-and-weekends
 
 [4]: https://github.com/JulesBuh/RepData_PeerAssessment1/blob/master/PA1_template.md#variables
