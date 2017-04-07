@@ -8,18 +8,11 @@ output:
 
 
 ## Loading and preprocessing the data
-# Peer-graded Assignment: Course Project 1
 
 ```{r Run Date, include=FALSE}
 Runtime <- Sys.Date()
 ```
 
----
-title: "PA1_template.Rmd"
-author: "Julian Buhagiar"
-date: 2017-04-07
-output: html_document
----
 
 date last modified: `r Runtime` 
 
@@ -424,17 +417,17 @@ A new factor is made in the column `weekdayType` within the `constructedData` da
 
 
 Plot 3 separates out the weekly routine into weekend and weekdays. It shows that
-there is a slightly different pattern for weekends.
+there is a different pattern for weekends.
 
-It appears that within a 5 minute period around 600 steps is what the subjects 
+It appears that within a 5 minute period around 600 steps is the subject's 
 natural walking pace, and when they are in a rush they can achieve 800 steps 
 within an interval.
-The peak values occur around the mid afternoon for on the weekends and there is 
+The higher paced values occur around the mid afternoon on the weekends and there is 
 generally more activity throughout the day compared to weekdays, whereas the 
 morning period around 9:00 am for both weekends and weekdays but weekdays are faster 
 paced around this period.
-Weekdays also show an ocassional short fast paced spikes around lunch time and at
-around 15:00. ctivity begins to dies dwo naround 19:00 wheras on weekends it can 
+Weekdays also show an ocassional short fast-paced spikes at around midday and at
+around 15:00. Activity begins to die down around 19:00 whereas on weekends it can 
 be up to an hour later.
 
 
